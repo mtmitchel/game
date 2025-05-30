@@ -279,4 +279,401 @@ function addFurniture() {
     const furnitureMaterial = new THREE.MeshStandardMaterial({ color: 0x8B4513, roughness: 0.7 });
     const couchGeometry = new THREE.BoxGeometry(4, 1.5, 2);
     const couch = new THREE.Mesh(couchGeometry, furnitureMaterial);
-    couch.position.set(-3, 0
+    couch.position.set(-3, 0.75, 2);
+    couch.castShadow = true;
+    scene.add(couch);
+    
+    const tableGeometry = new THREE.BoxGeometry(2, 0.8, 1);
+    const table = new THREE.Mesh(tableGeometry, furnitureMaterial);
+    table.position.set(-1, 0.4, 3);
+    table.castShadow = true;
+    scene.add(table);
+    
+    const counterGeometry = new THREE.BoxGeometry(8, 1.5, 2);
+    const counter = new THREE.Mesh(counterGeometry, furnitureMaterial);
+    counter.position.set(15 + 4, 0.75, 0 + 1);
+    counter.castShadow = true;
+    scene.add(counter);
+    
+    const bedGeometry = new THREE.BoxGeometry(3, 1, 6);
+    const bed = new THREE.Mesh(bedGeometry, furnitureMaterial);
+    bed.position.set(0 + 1.5, 0.5, 12 + 3);
+    bed.castShadow = true;
+    scene.add(bed);
+    
+    const closetGeometry = new THREE.BoxGeometry(2, 4, 1);
+    const closet = new THREE.Mesh(closetGeometry, furnitureMaterial);
+    closet.position.set(0 + 4, 2, 12 + 0.5);
+    closet.castShadow = true;
+    scene.add(closet);
+}
+
+function createMarina() {
+    const marinaGroup = new THREE.Group();
+    
+    const bodyMaterial = new THREE.MeshStandardMaterial({ color: 0xFF8FAB, roughness: 0.6 });
+    const bodyGeometry = new THREE.CylinderGeometry(0.3, 0.4, 1.4, 16);
+    const body = new THREE.Mesh(bodyGeometry, bodyMaterial);
+    body.position.y = 0.7;
+    body.castShadow = true;
+    marinaGroup.add(body);
+    
+    const headMaterial = new THREE.MeshStandardMaterial({ color: 0xC68642, roughness: 0.5 });
+    const headGeometry = new THREE.SphereGeometry(0.25, 16, 16);
+    const head = new THREE.Mesh(headGeometry, headMaterial);
+    head.position.y = 1.4 + 0.25;
+    head.castShadow = true;
+    marinaGroup.add(head);
+    
+    const hairMaterial = new THREE.MeshStandardMaterial({ color: 0x3B2A24, roughness: 0.4 });
+    const hairGeometry = new THREE.SphereGeometry(0.28, 16, 16, 0, Math.PI * 2, 0, Math.PI / 1.5);
+    const hair = new THREE.Mesh(hairGeometry, hairMaterial);
+    hair.position.y = head.position.y + 0.05;
+    hair.scale.set(1, 0.7, 1);
+    hair.rotation.x = -Math.PI / 10;
+    hair.castShadow = true;
+    marinaGroup.add(hair);
+    
+    marina = marinaGroup;
+    marina.visible = false;
+    scene.add(marina);
+    hideMarina();
+}
+
+function setupPlayer() {
+    player = {
+        position: camera.position, // Player's position IS the camera's position
+        velocity: new THREE.Vector3(),
+        canMove: true,
+        isScared: false
+    };
+    player.position.set(2, 1.6, -2); // Initial player/camera position
+}
+
+function startGame() {
+    hideAllScreens();
+    document.getElementById('gameUI').classList.remove('hidden');
+    document.getElementById('volumeControl').classList.remove('hidden');
+    
+    if (!scene) {
+        setup3D();
+    } else {
+        setupPlayer(); // Reset player/camera position for restart
+    }
+    
+    gameState = {
+        isPlaying: true,
+        isPaused: false,
+        score: 0,
+        scareCount: 0,
+        timeRemaining: gameConfig.gameTimeLimit,
+        marinaPosition: new THREE.Vector3(),
+        marinaVisible: false,
+        lastScareTime: 0,
+        nextScareTime: Date.now() + getRandomScareDelay()
+    };
+    
+    camera.rotation.set(0,0,0); // Reset camera rotation
+    updateUI();
+    hideMarina();
+    
+    if (ambientSound && ambientSound.context.state === 'suspended') {
+        ambientSound.context.resume().then(() => {
+            if(ambientSound.play) ambientSound.play();
+        });
+    } else if (ambientSound && ambientSound.play) {
+        ambientSound.play();
+    }
+    
+    lastTime = performance.now(); // Initialize lastTime for gameLoop
+    gameLoop();
+    setTimeout(requestPointerLock, 100); // Request pointer lock after a short delay
+}
+
+function restartGame() {
+    endGame("Restarting game..."); // Clean up current game state
+    startGame(); // Start a new game
+}
+
+function pauseGame() {
+    if (!gameState.isPlaying || gameState.isPaused) return;
+    gameState.isPaused = true;
+    player.canMove = false;
+    document.getElementById('pauseScreen').classList.remove('hidden');
+    document.exitPointerLock();
+}
+
+function resumeGame() {
+    if (!gameState.isPlaying || !gameState.isPaused) return;
+    gameState.isPaused = false;
+    player.canMove = true;
+    document.getElementById('pauseScreen').classList.add('hidden');
+    requestPointerLock();
+    lastTime = performance.now(); // Reset lastTime when resuming to avoid large deltaTime jump
+}
+
+function endGame(reason) {
+    gameState.isPlaying = false;
+    gameState.isPaused = false; // Ensure not stuck in paused state
+    if(player) player.canMove = false;
+    document.getElementById('gameUI').classList.add('hidden');
+    document.getElementById('volumeControl').classList.add('hidden');
+    document.getElementById('scareMessage').classList.add('hidden');
+    
+    if (ambientSound && ambientSound.stop) {
+        ambientSound.stop();
+    }
+    
+    document.getElementById('finalScore').textContent = gameState.score;
+    document.getElementById('finalScares').textContent = gameState.scareCount;
+    document.getElementById('gameOverReason').textContent = reason;
+    document.getElementById('gameOverScreen').classList.remove('hidden');
+    
+    if (document.pointerLockElement === canvas) {
+        document.exitPointerLock();
+    }
+}
+
+function showStartScreen() {
+    hideAllScreens();
+    document.getElementById('startScreen').classList.remove('hidden');
+    gameState.isPlaying = false;
+    gameState.isPaused = false;
+    if(player) player.canMove = false;
+    if (ambientSound && ambientSound.stop) {
+        ambientSound.stop();
+    }
+    if (document.pointerLockElement === canvas) {
+        document.exitPointerLock();
+    }
+}
+
+function hideAllScreens() {
+    document.querySelectorAll('.screen').forEach(screen => {
+        if (!screen.classList.contains('hidden')) {
+            screen.classList.add('hidden');
+        }
+    });
+}
+
+function getRandomScareDelay() {
+    return gameConfig.scareInterval + (Math.random() - 0.5) * gameConfig.scareVariance * 2;
+}
+
+function hideMarina() {
+    if (marina) {
+        marina.visible = false;
+    }
+    gameState.marinaVisible = false;
+    
+    const spotIndex = Math.floor(Math.random() * houseLayout.hidingSpots.length);
+    const spot = houseLayout.hidingSpots[spotIndex];
+    gameState.marinaPosition = new THREE.Vector3(spot.position.x, spot.position.y, spot.position.z);
+    
+    if (marina) {
+        marina.position.copy(gameState.marinaPosition);
+    }
+}
+
+function showMarina() {
+    if (!marina || !player || !gameState.marinaPosition) return;
+    
+    marina.position.copy(gameState.marinaPosition);
+    marina.lookAt(player.position);
+    marina.visible = true;
+    gameState.marinaVisible = true;
+    player.isScared = true;
+    player.canMove = false;
+    
+    if (scareSound && scareSound.play) {
+        scareSound.play();
+    }
+    
+    const scareMessage = document.getElementById('scareMessage');
+    scareMessage.classList.remove('hidden');
+    
+    setTimeout(() => {
+        scareMessage.classList.add('hidden');
+        hideMarina();
+        player.isScared = false;
+        player.canMove = true;
+    }, 2000);
+    
+    gameState.score -= 50;
+    if (gameState.score < 0) gameState.score = 0;
+    gameState.scareCount++;
+    gameState.lastScareTime = Date.now();
+    gameState.nextScareTime = Date.now() + getRandomScareDelay();
+    updateUI();
+    
+    if (gameState.scareCount >= gameConfig.maxScares) {
+        endGame(`Marina scared you ${gameConfig.maxScares} times! She wins!`);
+    }
+}
+
+function checkScareCondition() {
+    if (!gameState.isPlaying || gameState.isPaused || gameState.marinaVisible || !player || !gameState.marinaPosition || player.isScared) {
+        return;
+    }
+    
+    const now = Date.now();
+    if (now < gameState.nextScareTime) {
+        return;
+    }
+    
+    const playerPos = player.position;
+    const marinaHidingPos = gameState.marinaPosition;
+    const distance = playerPos.distanceTo(marinaHidingPos);
+    
+    if (distance < gameConfig.scareDistance) {
+        if (Math.random() < 0.75) {
+            showMarina();
+        } else {
+            gameState.nextScareTime = Date.now() + getRandomScareDelay() / 2;
+        }
+    }
+}
+
+let lastTime = 0; // Used for calculating deltaTime
+function gameLoop(currentTime) {
+    if (!gameState.isPlaying) {
+        return;
+    }
+    
+    requestAnimationFrame(gameLoop);
+    const now = performance.now();
+    const deltaTime = (now - (lastTime || now)) / 1000; // Time difference in seconds
+    lastTime = now;
+    
+    if (!gameState.isPaused) {
+        updateMovement(deltaTime);
+        updateGameTimer(deltaTime);
+        checkScareCondition();
+        updateUI();
+    }
+    
+    if (renderer && scene && camera) {
+        renderer.render(scene, camera);
+    }
+}
+
+function updateMovement(deltaTime) {
+    if (!gameState.isPlaying || gameState.isPaused || !player.canMove || player.isScared) return;
+    
+    const speed = gameConfig.moveSpeed * deltaTime;
+    const moveDirection = new THREE.Vector3();
+    
+    if (keys.w) moveDirection.z = -1;
+    if (keys.s) moveDirection.z = 1;
+    if (keys.a) moveDirection.x = -1;
+    if (keys.d) moveDirection.x = 1;
+    
+    if (moveDirection.lengthSq() > 0) {
+        moveDirection.normalize();
+        const euler = new THREE.Euler(0, camera.rotation.y, 0, 'YXZ');
+        moveDirection.applyEuler(euler);
+        player.position.addScaledVector(moveDirection, speed);
+        
+        // Simple boundary collision
+        player.position.x = Math.max(-28, Math.min(28, player.position.x));
+        player.position.z = Math.max(-28, Math.min(28, player.position.z));
+        camera.position.y = 1.6; // Keep camera at eye level
+    }
+}
+
+function updateGameTimer(deltaTime) {
+    gameState.timeRemaining -= deltaTime;
+    if (gameState.timeRemaining <= 0) {
+        gameState.timeRemaining = 0;
+        updateUI();
+        endGame("Time's up! You survived Marina's scares (for now)!");
+    }
+}
+
+function updateUI() {
+    document.getElementById('scoreDisplay').textContent = gameState.score;
+    document.getElementById('scaresDisplay').textContent = `${gameState.scareCount}/${gameConfig.maxScares}`;
+    
+    const time = Math.max(0, gameState.timeRemaining);
+    const minutes = Math.floor(time / 60);
+    const seconds = Math.floor(time % 60);
+    document.getElementById('timeDisplay').textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+}
+
+// Event Handlers
+function onKeyDown(event) {
+    if (!gameState.isPlaying && event.code !== 'Escape') return;
+    
+    switch(event.code) {
+        case 'KeyW': keys.w = true; break;
+        case 'KeyA': keys.a = true; break;
+        case 'KeyS': keys.s = true; break;
+        case 'KeyD': keys.d = true; break;
+        case 'Escape':
+            event.preventDefault();
+            if (gameState.isPlaying) {
+                if (gameState.isPaused) {
+                    resumeGame();
+                } else {
+                    pauseGame();
+                }
+            }
+            break;
+    }
+}
+
+function onKeyUp(event) {
+    switch(event.code) {
+        case 'KeyW': keys.w = false; break;
+        case 'KeyA': keys.a = false; break;
+        case 'KeyS': keys.s = false; break;
+        case 'KeyD': keys.d = false; break;
+    }
+}
+
+function onMouseMove(event) {
+    if (gameState.isPlaying && !gameState.isPaused && document.pointerLockElement === canvas) {
+        camera.rotation.y -= event.movementX * gameConfig.mouseSensitivity;
+        camera.rotation.x -= event.movementY * gameConfig.mouseSensitivity;
+        camera.rotation.x = Math.max(-Math.PI / 2, Math.min(Math.PI / 2, camera.rotation.x));
+    }
+}
+
+function onWindowResize() {
+    if (camera && renderer) {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+    }
+}
+
+function requestPointerLock() {
+    if (canvas && gameState.isPlaying && !gameState.isPaused) {
+        canvas.requestPointerLock = canvas.requestPointerLock ||
+                                   canvas.mozRequestPointerLock ||
+                                   canvas.webkitRequestPointerLock;
+        
+        if (canvas.requestPointerLock) {
+            canvas.requestPointerLock();
+        }
+    }
+}
+
+function onPointerLockChange() {
+    if (document.pointerLockElement === canvas) {
+        if (gameState.isPlaying && !gameState.isPaused) {
+            player.canMove = true;
+        }
+    } else {
+        if (gameState.isPlaying && !gameState.isPaused) {
+            pauseGame();
+        }
+    }
+}
+
+function onPointerLockError() {
+    console.error('Pointer Lock Error.');
+}
+
+// Initialize the game
+init();
