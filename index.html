@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marina's Jump Scare House - Cheviot, Ohio</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body>
+    <div id="gameContainer">
+        <!-- Start Screen -->
+        <div id="startScreen" class="screen">
+            <div class="screen-content">
+                <h1>Marina's Jump Scare House</h1>
+                <h2>Cheviot, Ohio</h2>
+                <p>You are Mason, exploring a mysterious house where Marina likes to hide and jump scare visitors.</p>
+                <div class="instructions">
+                    <h3>Controls:</h3>
+                    <p><strong>WASD</strong> - Move around</p>
+                    <p><strong>Mouse</strong> - Look around</p>
+                    <p><strong>ESC</strong> - Pause/Resume</p>
+                </div>
+                <button id="startButton" class="btn btn--primary btn--lg">Start Game</button>
+            </div>
+        </div>
+
+        <!-- Game UI -->
+        <div id="gameUI" class="hidden">
+            <div class="hud">
+                <div class="hud-item">
+                    <span class="label">Score:</span>
+                    <span id="scoreDisplay">0</span>
+                </div>
+                <div class="hud-item">
+                    <span class="label">Time:</span>
+                    <span id="timeDisplay">5:00</span>
+                </div>
+                <div class="hud-item">
+                    <span class="label">Scares:</span>
+                    <span id="scaresDisplay">0/10</span>
+                </div>
+            </div>
+            <div id="crosshair"></div>
+            <div id="scareMessage" class="scare-message hidden">Marina got you!</div>
+        </div>
+
+        <!-- Game Over Screen -->
+        <div id="gameOverScreen" class="screen hidden">
+            <div class="screen-content">
+                <h1>Game Over!</h1>
+                <div class="final-stats">
+                    <p>Final Score: <span id="finalScore">0</span></p>
+                    <p>Total Scares: <span id="finalScares">0</span></p>
+                    <p id="gameOverReason">Time's up!</p>
+                </div>
+                <button id="restartButton" class="btn btn--primary btn--lg">Play Again</button>
+            </div>
+        </div>
+
+        <!-- Pause Screen -->
+        <div id="pauseScreen" class="screen hidden">
+            <div class="screen-content">
+                <h2>Game Paused</h2>
+                <p>Press ESC to resume</p>
+                <button id="resumeButton" class="btn btn--secondary">Resume Game</button>
+                <button id="mainMenuButton" class="btn btn--outline">Main Menu</button>
+            </div>
+        </div>
+
+        <!-- 3D Canvas -->
+        <canvas id="gameCanvas"></canvas>
+
+        <!-- Volume Control -->
+        <div id="volumeControl" class="volume-control hidden">
+            <label for="volumeSlider">Volume:</label>
+            <input type="range" id="volumeSlider" min="0" max="1" step="0.1" value="0.5">
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
