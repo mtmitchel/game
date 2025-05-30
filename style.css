@@ -1,4 +1,3 @@
-
 :root {
   /* Colors */
   --color-background: rgba(252, 252, 249, 1);
@@ -31,6 +30,7 @@
   --select-caret-dark: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23f5f5f5' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
 
   /* RGB versions for opacity control */
+  --color-primary-rgb: 33, 128, 141; /* Added for crosshair */
   --color-success-rgb: 33, 128, 141;
   --color-error-rgb: 192, 21, 47;
   --color-warning-rgb: 168, 75, 47;
@@ -104,13 +104,14 @@
 /* Dark mode colors */
 @media (prefers-color-scheme: dark) {
   :root {
-    --color-background: rgba(31, 33, 33, 1);
+    --color-background: rgba(18, 18, 18, 1); /* Even darker background for game */
     --color-surface: rgba(38, 40, 40, 1);
     --color-text: rgba(245, 245, 245, 1);
     --color-text-secondary: rgba(167, 169, 169, 0.7);
     --color-primary: rgba(50, 184, 198, 1);
     --color-primary-hover: rgba(45, 166, 178, 1);
     --color-primary-active: rgba(41, 150, 161, 1);
+    --color-primary-rgb: 50, 184, 198; /* Added for crosshair */
     --color-secondary: rgba(119, 124, 124, 0.15);
     --color-secondary-hover: rgba(119, 124, 124, 0.25);
     --color-secondary-active: rgba(119, 124, 124, 0.3);
@@ -120,7 +121,7 @@
     --color-warning: rgba(230, 129, 97, 1);
     --color-info: rgba(167, 169, 169, 1);
     --color-focus-ring: rgba(50, 184, 198, 0.4);
-    --color-btn-primary-text: rgba(19, 52, 59, 1);
+    --color-btn-primary-text: rgba(19, 52, 59, 1); /* Text on primary buttons */
     --color-card-border: rgba(119, 124, 124, 0.2);
     --color-card-border-inner: rgba(119, 124, 124, 0.15);
     --shadow-inset-sm: inset 0 1px 0 rgba(255, 255, 255, 0.1),
@@ -128,32 +129,19 @@
     --button-border-secondary: rgba(119, 124, 124, 0.2);
     --color-border-secondary: rgba(119, 124, 124, 0.2);
     --color-select-caret: rgba(245, 245, 245, 0.8);
-
-    /* Common style patterns - updated for dark mode */
-    --focus-ring: 0 0 0 3px var(--color-focus-ring);
-    --focus-outline: 2px solid var(--color-primary);
-    --status-bg-opacity: 0.15;
-    --status-border-opacity: 0.25;
-    --select-caret-light: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23134252' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
-    --select-caret-dark: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23f5f5f5' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
-
-    /* RGB versions for dark mode */
-    --color-success-rgb: 50, 184, 198;
-    --color-error-rgb: 255, 84, 89;
-    --color-warning-rgb: 230, 129, 97;
-    --color-info-rgb: 167, 169, 169;
   }
 }
 
 /* Data attribute for manual theme switching */
 [data-color-scheme="dark"] {
-  --color-background: rgba(31, 33, 33, 1);
+  --color-background: rgba(18, 18, 18, 1);
   --color-surface: rgba(38, 40, 40, 1);
   --color-text: rgba(245, 245, 245, 1);
   --color-text-secondary: rgba(167, 169, 169, 0.7);
   --color-primary: rgba(50, 184, 198, 1);
   --color-primary-hover: rgba(45, 166, 178, 1);
   --color-primary-active: rgba(41, 150, 161, 1);
+  --color-primary-rgb: 50, 184, 198;
   --color-secondary: rgba(119, 124, 124, 0.15);
   --color-secondary-hover: rgba(119, 124, 124, 0.25);
   --color-secondary-active: rgba(119, 124, 124, 0.3);
@@ -170,20 +158,6 @@
     inset 0 -1px 0 rgba(0, 0, 0, 0.15);
   --color-border-secondary: rgba(119, 124, 124, 0.2);
   --color-select-caret: rgba(245, 245, 245, 0.8);
-
-  /* Common style patterns - updated for dark mode */
-  --focus-ring: 0 0 0 3px var(--color-focus-ring);
-  --focus-outline: 2px solid var(--color-primary);
-  --status-bg-opacity: 0.15;
-  --status-border-opacity: 0.25;
-  --select-caret-light: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23134252' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
-  --select-caret-dark: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23f5f5f5' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
-
-  /* RGB versions for dark mode */
-  --color-success-rgb: 50, 184, 198;
-  --color-error-rgb: 255, 84, 89;
-  --color-warning-rgb: 230, 129, 97;
-  --color-info-rgb: 167, 169, 169;
 }
 
 [data-color-scheme="light"] {
@@ -194,6 +168,7 @@
   --color-primary: rgba(33, 128, 141, 1);
   --color-primary-hover: rgba(29, 116, 128, 1);
   --color-primary-active: rgba(26, 104, 115, 1);
+  --color-primary-rgb: 33, 128, 141;
   --color-secondary: rgba(94, 82, 64, 0.12);
   --color-secondary-hover: rgba(94, 82, 64, 0.2);
   --color-secondary-active: rgba(94, 82, 64, 0.25);
@@ -206,12 +181,6 @@
   --color-warning: rgba(168, 75, 47, 1);
   --color-info: rgba(98, 108, 113, 1);
   --color-focus-ring: rgba(33, 128, 141, 0.4);
-
-  /* RGB versions for light mode */
-  --color-success-rgb: 33, 128, 141;
-  --color-error-rgb: 192, 21, 47;
-  --color-warning-rgb: 168, 75, 47;
-  --color-info-rgb: 98, 108, 113;
 }
 
 /* Base styles */
@@ -220,7 +189,7 @@ html {
   font-family: var(--font-family-base);
   line-height: var(--line-height-normal);
   color: var(--color-text);
-  background-color: var(--color-background);
+  background-color: var(--color-background); /* Overall page background */
   -webkit-font-smoothing: antialiased;
   box-sizing: border-box;
 }
@@ -228,6 +197,7 @@ html {
 body {
   margin: 0;
   padding: 0;
+  overflow: hidden; /* Prevent scrollbars from body if game is full screen */
 }
 
 *,
@@ -237,438 +207,82 @@ body {
 }
 
 /* Typography */
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
+h1, h2, h3, h4, h5, h6 {
   margin: 0;
   font-weight: var(--font-weight-semibold);
   line-height: var(--line-height-tight);
-  color: var(--color-text);
   letter-spacing: var(--letter-spacing-tight);
 }
 
-h1 {
-  font-size: var(--font-size-4xl);
+/* Screen content text colors need to be explicitly set to ensure readability on dark surface */
+.screen-content h1,
+.screen-content h2,
+.screen-content h3,
+.screen-content p {
+    color: var(--color-text); /* Uses the current theme's text color */
 }
-h2 {
-  font-size: var(--font-size-3xl);
-}
-h3 {
-  font-size: var(--font-size-2xl);
-}
-h4 {
-  font-size: var(--font-size-xl);
-}
-h5 {
-  font-size: var(--font-size-lg);
-}
-h6 {
-  font-size: var(--font-size-md);
-}
+.screen-content h1 { color: var(--color-primary); } /* Main title in primary color */
 
-p {
-  margin: 0 0 var(--space-16) 0;
-}
 
-a {
-  color: var(--color-primary);
-  text-decoration: none;
-  transition: color var(--duration-fast) var(--ease-standard);
-}
+h1 { font-size: var(--font-size-4xl); }
+h2 { font-size: var(--font-size-3xl); }
+h3 { font-size: var(--font-size-2xl); }
+h4 { font-size: var(--font-size-xl); }
+h5 { font-size: var(--font-size-lg); }
+h6 { font-size: var(--font-size-md); }
 
-a:hover {
-  color: var(--color-primary-hover);
-}
+p { margin: 0 0 var(--space-16) 0; }
+a { color: var(--color-primary); text-decoration: none; transition: color var(--duration-fast) var(--ease-standard); }
+a:hover { color: var(--color-primary-hover); }
 
-code,
-pre {
+code, pre {
   font-family: var(--font-family-mono);
   font-size: calc(var(--font-size-base) * 0.95);
   background-color: var(--color-secondary);
   border-radius: var(--radius-sm);
 }
-
-code {
-  padding: var(--space-1) var(--space-4);
-}
-
-pre {
-  padding: var(--space-16);
-  margin: var(--space-16) 0;
-  overflow: auto;
-  border: 1px solid var(--color-border);
-}
-
-pre code {
-  background: none;
-  padding: 0;
-}
+code { padding: var(--space-1) var(--space-4); }
+pre { padding: var(--space-16); margin: var(--space-16) 0; overflow: auto; border: 1px solid var(--color-border); }
+pre code { background: none; padding: 0; }
 
 /* Buttons */
 .btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+  display: inline-flex; align-items: center; justify-content: center;
   padding: var(--space-8) var(--space-16);
   border-radius: var(--radius-base);
-  font-size: var(--font-size-base);
-  font-weight: 500;
-  line-height: 1.5;
-  cursor: pointer;
-  transition: all var(--duration-normal) var(--ease-standard);
-  border: none;
-  text-decoration: none;
-  position: relative;
+  font-size: var(--font-size-base); font-weight: 500; line-height: 1.5;
+  cursor: pointer; transition: all var(--duration-normal) var(--ease-standard);
+  border: none; text-decoration: none; position: relative;
 }
+.btn:focus-visible { outline: none; box-shadow: var(--focus-ring); }
+.btn--primary { background: var(--color-primary); color: var(--color-btn-primary-text); }
+.btn--primary:hover { background: var(--color-primary-hover); }
+.btn--primary:active { background: var(--color-primary-active); }
+.btn--secondary { background: var(--color-secondary); color: var(--color-text); }
+.btn--secondary:hover { background: var(--color-secondary-hover); }
+.btn--secondary:active { background: var(--color-secondary-active); }
+.btn--outline { background: transparent; border: 1px solid var(--color-border); color: var(--color-text); }
+.btn--outline:hover { background: var(--color-secondary); }
+.btn--sm { padding: var(--space-4) var(--space-12); font-size: var(--font-size-sm); border-radius: var(--radius-sm); }
+.btn--lg { padding: var(--space-10) var(--space-20); font-size: var(--font-size-lg); border-radius: var(--radius-md); }
+.btn--full-width { width: 100%; }
+.btn:disabled { opacity: 0.5; cursor: not-allowed; }
 
-.btn:focus-visible {
-  outline: none;
-  box-shadow: var(--focus-ring);
-}
-
-.btn--primary {
-  background: var(--color-primary);
-  color: var(--color-btn-primary-text);
-}
-
-.btn--primary:hover {
-  background: var(--color-primary-hover);
-}
-
-.btn--primary:active {
-  background: var(--color-primary-active);
-}
-
-.btn--secondary {
-  background: var(--color-secondary);
-  color: var(--color-text);
-}
-
-.btn--secondary:hover {
-  background: var(--color-secondary-hover);
-}
-
-.btn--secondary:active {
-  background: var(--color-secondary-active);
-}
-
-.btn--outline {
-  background: transparent;
-  border: 1px solid var(--color-border);
-  color: var(--color-text);
-}
-
-.btn--outline:hover {
-  background: var(--color-secondary);
-}
-
-.btn--sm {
-  padding: var(--space-4) var(--space-12);
-  font-size: var(--font-size-sm);
-  border-radius: var(--radius-sm);
-}
-
-.btn--lg {
-  padding: var(--space-10) var(--space-20);
-  font-size: var(--font-size-lg);
-  border-radius: var(--radius-md);
-}
-
-.btn--full-width {
-  width: 100%;
-}
-
-.btn:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-/* Form elements */
-.form-control {
-  display: block;
-  width: 100%;
-  padding: var(--space-8) var(--space-12);
-  font-size: var(--font-size-md);
-  line-height: 1.5;
-  color: var(--color-text);
-  background-color: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-base);
-  transition: border-color var(--duration-fast) var(--ease-standard),
-    box-shadow var(--duration-fast) var(--ease-standard);
-}
-
-textarea.form-control {
-  font-family: var(--font-family-base);
-  font-size: var(--font-size-base);
-}
-
-select.form-control {
-  padding: var(--space-8) var(--space-12);
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  background-image: var(--select-caret-light);
-  background-repeat: no-repeat;
-  background-position: right var(--space-12) center;
-  background-size: 16px;
-  padding-right: var(--space-32);
-}
-
-/* Add a dark mode specific caret */
-@media (prefers-color-scheme: dark) {
-  select.form-control {
-    background-image: var(--select-caret-dark);
-  }
-}
-
-/* Also handle data-color-scheme */
-[data-color-scheme="dark"] select.form-control {
-  background-image: var(--select-caret-dark);
-}
-
-[data-color-scheme="light"] select.form-control {
-  background-image: var(--select-caret-light);
-}
-
-.form-control:focus {
-  border-color: var(--color-primary);
-  outline: var(--focus-outline);
-}
-
-.form-label {
-  display: block;
-  margin-bottom: var(--space-8);
-  font-weight: var(--font-weight-medium);
-  font-size: var(--font-size-sm);
-}
-
-.form-group {
-  margin-bottom: var(--space-16);
-}
-
-/* Card component */
-.card {
-  background-color: var(--color-surface);
-  border-radius: var(--radius-lg);
-  border: 1px solid var(--color-card-border);
-  box-shadow: var(--shadow-sm);
-  overflow: hidden;
-  transition: box-shadow var(--duration-normal) var(--ease-standard);
-}
-
-.card:hover {
-  box-shadow: var(--shadow-md);
-}
-
-.card__body {
-  padding: var(--space-16);
-}
-
-.card__header,
-.card__footer {
-  padding: var(--space-16);
-  border-bottom: 1px solid var(--color-card-border-inner);
-}
-
-/* Status indicators - simplified with CSS variables */
-.status {
-  display: inline-flex;
-  align-items: center;
-  padding: var(--space-6) var(--space-12);
-  border-radius: var(--radius-full);
-  font-weight: var(--font-weight-medium);
-  font-size: var(--font-size-sm);
-}
-
-.status--success {
-  background-color: rgba(
-    var(--color-success-rgb, 33, 128, 141),
-    var(--status-bg-opacity)
-  );
-  color: var(--color-success);
-  border: 1px solid
-    rgba(var(--color-success-rgb, 33, 128, 141), var(--status-border-opacity));
-}
-
-.status--error {
-  background-color: rgba(
-    var(--color-error-rgb, 192, 21, 47),
-    var(--status-bg-opacity)
-  );
-  color: var(--color-error);
-  border: 1px solid
-    rgba(var(--color-error-rgb, 192, 21, 47), var(--status-border-opacity));
-}
-
-.status--warning {
-  background-color: rgba(
-    var(--color-warning-rgb, 168, 75, 47),
-    var(--status-bg-opacity)
-  );
-  color: var(--color-warning);
-  border: 1px solid
-    rgba(var(--color-warning-rgb, 168, 75, 47), var(--status-border-opacity));
-}
-
-.status--info {
-  background-color: rgba(
-    var(--color-info-rgb, 98, 108, 113),
-    var(--status-bg-opacity)
-  );
-  color: var(--color-info);
-  border: 1px solid
-    rgba(var(--color-info-rgb, 98, 108, 113), var(--status-border-opacity));
-}
-
-/* Container layout */
-.container {
-  width: 100%;
-  margin-right: auto;
-  margin-left: auto;
-  padding-right: var(--space-16);
-  padding-left: var(--space-16);
-}
-
-@media (min-width: 640px) {
-  .container {
-    max-width: var(--container-sm);
-  }
-}
-@media (min-width: 768px) {
-  .container {
-    max-width: var(--container-md);
-  }
-}
-@media (min-width: 1024px) {
-  .container {
-    max-width: var(--container-lg);
-  }
-}
-@media (min-width: 1280px) {
-  .container {
-    max-width: var(--container-xl);
-  }
-}
-
-/* Utility classes */
-.flex {
-  display: flex;
-}
-.flex-col {
-  flex-direction: column;
-}
-.items-center {
-  align-items: center;
-}
-.justify-center {
-  justify-content: center;
-}
-.justify-between {
-  justify-content: space-between;
-}
-.gap-4 {
-  gap: var(--space-4);
-}
-.gap-8 {
-  gap: var(--space-8);
-}
-.gap-16 {
-  gap: var(--space-16);
-}
-
-.m-0 {
-  margin: 0;
-}
-.mt-8 {
-  margin-top: var(--space-8);
-}
-.mb-8 {
-  margin-bottom: var(--space-8);
-}
-.mx-8 {
-  margin-left: var(--space-8);
-  margin-right: var(--space-8);
-}
-.my-8 {
-  margin-top: var(--space-8);
-  margin-bottom: var(--space-8);
-}
-
-.p-0 {
-  padding: 0;
-}
-.py-8 {
-  padding-top: var(--space-8);
-  padding-bottom: var(--space-8);
-}
-.px-8 {
-  padding-left: var(--space-8);
-  padding-right: var(--space-8);
-}
-.py-16 {
-  padding-top: var(--space-16);
-  padding-bottom: var(--space-16);
-}
-.px-16 {
-  padding-left: var(--space-16);
-  padding-right: var(--space-16);
-}
-
-.block {
-  display: block;
-}
-.hidden {
-  display: none;
-}
-
-/* Accessibility */
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border-width: 0;
-}
-
-:focus-visible {
-  outline: var(--focus-outline);
-  outline-offset: 2px;
-}
-
-/* Dark mode specifics */
-[data-color-scheme="dark"] .btn--outline {
-  border: 1px solid var(--color-border-secondary);
-}
-
-@font-face {
-  font-family: 'FKGroteskNeue';
-  src: url('https://www.perplexity.ai/fonts/FKGroteskNeue.woff2')
-    format('woff2');
-}
 
 /* Game-specific styles */
-
 #gameContainer {
   position: relative;
   width: 100vw;
   height: 100vh;
   overflow: hidden;
-  background: var(--color-background);
+  background: #000; /* Fallback, but 3D scene background will usually take over */
 }
 
 #gameCanvas {
   display: block;
   width: 100%;
   height: 100%;
-  cursor: none;
+  cursor: none; /* Crosshair will be shown by CSS */
 }
 
 /* Screen Overlays */
@@ -678,203 +292,205 @@ select.form-control {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(19, 52, 59, 0.95);
+  background: rgba(10, 10, 15, 0.9); /* Darker, slightly transparent overlay for screens */
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 1000;
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(8px);
+  opacity: 0; /* Start hidden */
+  visibility: hidden; /* Start hidden */
+  transition: opacity 0.3s var(--ease-standard), visibility 0s linear 0.3s;
 }
+
+/* When a screen is NOT hidden, make it visible */
+.screen:not(.hidden) {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.3s var(--ease-standard), visibility 0s linear 0s;
+}
+
 
 .screen-content {
   text-align: center;
-  color: var(--color-text);
-  max-width: 600px;
-  padding: var(--space-32);
-  background: var(--color-surface);
-  border-radius: var(--radius-lg);
+  max-width: 550px;
+  padding: var(--space-24) var(--space-32);
+  background: var(--color-surface); /* Use theme's surface color for screen content boxes */
+  border-radius: var(--radius-md);
   border: 1px solid var(--color-card-border);
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--shadow-md);
 }
 
-.screen h1 {
-  font-size: var(--font-size-4xl);
-  margin-bottom: var(--space-16);
-  color: var(--color-primary);
-}
-
-.screen h2 {
-  font-size: var(--font-size-2xl);
-  margin-bottom: var(--space-24);
-  color: var(--color-text-secondary);
-}
-
-.screen h3 {
-  font-size: var(--font-size-xl);
+.screen-content h1 {
+  font-size: var(--font-size-3xl);
   margin-bottom: var(--space-12);
-  color: var(--color-text);
 }
 
-.screen p {
-  margin-bottom: var(--space-16);
-  line-height: var(--line-height-normal);
+.screen-content h2 {
+  font-size: var(--font-size-xl);
+  margin-bottom: var(--space-20);
+  color: var(--color-text-secondary); /* Secondary text for less emphasis */
 }
 
-.instructions {
-  background: var(--color-secondary);
-  padding: var(--space-20);
+.screen-content h3 {
+  font-size: var(--font-size-lg);
+  margin-bottom: var(--space-10);
+}
+
+.screen-content p {
+  margin-bottom: var(--space-12);
+  line-height: 1.6;
+}
+
+.instructions, .final-stats {
+  background: var(--color-secondary); /* Lighter background for these info boxes */
+  padding: var(--space-16);
   border-radius: var(--radius-base);
-  margin: var(--space-24) 0;
+  margin: var(--space-20) 0;
   border: 1px solid var(--color-border);
 }
 
-.instructions p {
+.instructions p, .final-stats p {
   margin-bottom: var(--space-8);
+  color: var(--color-text); /* Ensure text contrasts with the secondary background */
 }
-
-.instructions p:last-child {
-  margin-bottom: 0;
-}
-
-.final-stats {
-  background: var(--color-secondary);
-  padding: var(--space-20);
-  border-radius: var(--radius-base);
-  margin: var(--space-24) 0;
-  border: 1px solid var(--color-border);
-}
+.instructions p:last-child, .final-stats p:last-child { margin-bottom: 0; }
 
 .final-stats p {
-  margin-bottom: var(--space-12);
-  font-size: var(--font-size-lg);
-  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-md);
 }
 
-.final-stats p:last-child {
-  margin-bottom: 0;
-}
-
-/* Game UI */
+/* Game UI (HUD, Crosshair, etc.) */
 #gameUI {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none; /* UI elements don't block mouse events for the game canvas */
   z-index: 100;
+  opacity: 0; /* Start hidden, controlled by JS */
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0s linear 0.3s;
 }
+#gameUI:not(.hidden) {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.3s ease, visibility 0s linear 0s;
+}
+
 
 .hud {
   position: absolute;
-  top: var(--space-20);
-  left: var(--space-20);
+  top: var(--space-16);
+  left: var(--space-16);
   display: flex;
   flex-direction: column;
-  gap: var(--space-12);
+  gap: var(--space-10);
 }
 
 .hud-item {
-  background: rgba(19, 52, 59, 0.8);
-  color: var(--color-text);
-  padding: var(--space-8) var(--space-16);
-  border-radius: var(--radius-base);
+  background: rgba(15, 25, 30, 0.75); /* Darker, more translucent HUD items */
+  color: #e0e0e0; /* Lighter text for HUD for better contrast on dark game scene */
+  padding: var(--space-6) var(--space-12);
+  border-radius: var(--radius-sm);
   font-weight: var(--font-weight-medium);
-  font-size: var(--font-size-base);
-  border: 1px solid rgba(94, 82, 64, 0.3);
-  backdrop-filter: blur(5px);
+  font-size: var(--font-size-sm);
+  border: 1px solid rgba(94, 82, 64, 0.2); /* Subtle border */
+  backdrop-filter: blur(3px); /* Slight blur for HUD background */
 }
 
-.label {
-  color: var(--color-text-secondary);
-  margin-right: var(--space-8);
+.hud-item .label {
+  color: #a0a0a0; /* Softer label color within HUD items */
+  margin-right: var(--space-6);
 }
 
 #crosshair {
   position: absolute;
-  top: 50%;
-  left: 50%;
+  top: 50%; left: 50%;
   transform: translate(-50%, -50%);
-  width: 4px;
-  height: 4px;
-  background: var(--color-primary);
+  width: 3px; height: 3px; /* Smaller, less obtrusive crosshair */
+  background: rgba(var(--color-primary-rgb), 0.8); /* Primary color with opacity */
   border-radius: 50%;
-  box-shadow: 0 0 0 2px rgba(19, 52, 59, 0.8);
+  box-shadow: 0 0 0 1px rgba(10, 10, 10, 0.7); /* Darker shadow for definition */
 }
 
 .scare-message {
   position: absolute;
-  top: 50%;
-  left: 50%;
+  top: 50%; left: 50%;
   transform: translate(-50%, -50%);
-  background: var(--color-error);
-  color: white;
-  padding: var(--space-16) var(--space-32);
+  background: var(--color-error); /* Error color for scare message */
+  color: white; /* White text for high contrast */
+  padding: var(--space-12) var(--space-24);
   border-radius: var(--radius-base);
-  font-size: var(--font-size-2xl);
+  font-size: var(--font-size-xl);
   font-weight: var(--font-weight-bold);
-  box-shadow: var(--shadow-lg);
-  animation: scareFlash 2s ease-out;
+  box-shadow: var(--shadow-md);
+  animation: scareFlash 1.8s ease-out forwards; /* Forwards keeps last frame state */
   z-index: 500;
+  opacity: 0; /* Start transparent, animation handles fade in/out */
+}
+.scare-message:not(.hidden) {
+    /* JS will remove 'hidden', animation takes over */
 }
 
+
 @keyframes scareFlash {
-  0% {
-    transform: translate(-50%, -50%) scale(0.5);
-    opacity: 0;
-  }
-  20% {
-    transform: translate(-50%, -50%) scale(1.2);
-    opacity: 1;
-  }
-  100% {
-    transform: translate(-50%, -50%) scale(1);
-    opacity: 0;
-  }
+  0% { transform: translate(-50%, -50%) scale(0.6); opacity: 0; }
+  15% { transform: translate(-50%, -50%) scale(1.1); opacity: 1; }
+  80% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+  100% { transform: translate(-50%, -50%) scale(0.9); opacity: 0; }
 }
 
 /* Volume Control */
 .volume-control {
   position: absolute;
-  bottom: var(--space-20);
-  right: var(--space-20);
-  background: rgba(19, 52, 59, 0.8);
-  padding: var(--space-12) var(--space-16);
-  border-radius: var(--radius-base);
-  color: var(--color-text);
-  border: 1px solid rgba(94, 82, 64, 0.3);
-  backdrop-filter: blur(5px);
-  pointer-events: auto;
+  bottom: var(--space-16);
+  right: var(--space-16);
+  background: rgba(15, 25, 30, 0.75); /* Consistent with HUD items */
+  padding: var(--space-10) var(--space-12);
+  border-radius: var(--radius-sm);
+  color: #e0e0e0; /* Light text */
+  border: 1px solid rgba(94, 82, 64, 0.2);
+  backdrop-filter: blur(3px);
+  pointer-events: auto; /* Allow interaction with volume control */
+  opacity: 0; /* Start hidden */
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0s linear 0.3s;
 }
+.volume-control:not(.hidden) {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.3s ease, visibility 0s linear 0s;
+}
+
 
 .volume-control label {
   display: block;
   margin-bottom: var(--space-4);
-  font-size: var(--font-size-sm);
+  font-size: var(--font-size-xs);
   font-weight: var(--font-weight-medium);
 }
 
 #volumeSlider {
-  width: 100px;
-  height: 4px;
+  width: 80px;
+  height: 3px;
   background: var(--color-secondary);
   border-radius: var(--radius-sm);
   outline: none;
-  -webkit-appearance: none;
+  -webkit-appearance: none; /* Remove default appearance */
+  appearance: none;
 }
 
 #volumeSlider::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  width: 16px;
-  height: 16px;
+  -webkit-appearance: none; /* Remove default thumb appearance */
+  appearance: none;
+  width: 14px; height: 14px;
   background: var(--color-primary);
   border-radius: 50%;
   cursor: pointer;
 }
 
-#volumeSlider::-moz-range-thumb {
-  width: 16px;
-  height: 16px;
+#volumeSlider::-moz-range-thumb { /* For Firefox */
+  width: 14px; height: 14px;
   background: var(--color-primary);
   border-radius: 50%;
   cursor: pointer;
@@ -884,67 +500,69 @@ select.form-control {
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .screen-content {
-    margin: var(--space-16);
-    padding: var(--space-24);
+    margin: var(--space-12);
+    padding: var(--space-20);
   }
-  
-  .screen h1 {
-    font-size: var(--font-size-3xl);
-  }
-  
-  .hud {
-    top: var(--space-12);
-    left: var(--space-12);
-  }
-  
-  .hud-item {
-    padding: var(--space-6) var(--space-12);
-    font-size: var(--font-size-sm);
-  }
-  
-  .volume-control {
-    bottom: var(--space-12);
-    right: var(--space-12);
-    padding: var(--space-8) var(--space-12);
-  }
+  .screen-content h1 { font-size: var(--font-size-2xl); }
+  .hud { top: var(--space-10); left: var(--space-10); }
+  .hud-item { padding: var(--space-4) var(--space-8); font-size: 10px; }
+  .volume-control { bottom: var(--space-10); right: var(--space-10); padding: var(--space-6) var(--space-10); }
+  .scare-message { font-size: var(--font-size-lg); padding: var(--space-10) var(--space-20); }
 }
 
-/* Loading state */
-.loading {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: var(--font-size-lg);
-  color: var(--color-text-secondary);
+.hidden {
+  /* Using !important cautiously here to ensure JS toggling works over transition states */
+  opacity: 0 !important;
+  visibility: hidden !important;
+  transition: opacity 0.3s var(--ease-standard), visibility 0s linear 0.3s !important;
 }
 
-/* Dark mode adjustments */
-@media (prefers-color-scheme: dark) {
-  .screen {
-    background: rgba(31, 33, 33, 0.95);
-  }
-  
-  .hud-item {
-    background: rgba(38, 40, 40, 0.9);
-    border: 1px solid rgba(119, 124, 124, 0.3);
-  }
-  
-  .volume-control {
-    background: rgba(38, 40, 40, 0.9);
-    border: 1px solid rgba(119, 124, 124, 0.3);
-  }
-}
 
-[data-color-scheme="dark"] .screen {
-  background: rgba(31, 33, 33, 0.95);
-}
-
+/* Dark mode specifics (using data attribute if preferred over media query for game UI) */
+/* These are applied if the data-color-scheme="dark" is on the html or body tag */
+[data-color-scheme="dark"] .screen { background: rgba(10, 10, 15, 0.95); } /* Darker screen overlay for dark mode */
 [data-color-scheme="dark"] .hud-item {
-  background: rgba(38, 40, 40, 0.9);
-  border: 1px solid rgba(119, 124, 124, 0.3);
+    background: rgba(25, 30, 35, 0.85); /* Slightly different HUD bg for dark theme */
+    border-color: rgba(119, 124, 124, 0.25);
+    color: #f0f0f0; /* Brighter text for dark theme HUD */
+}
+[data-color-scheme="dark"] .hud-item .label { color: #b0b0b0; }
+[data-color-scheme="dark"] .volume-control {
+    background: rgba(25, 30, 35, 0.85);
+    border-color: rgba(119, 124, 124, 0.25);
+    color: #f0f0f0;
+}
+[data-color-scheme="dark"] #crosshair {
+    background: rgba(var(--color-primary-rgb), 0.9); /* Use RGB version for opacity */
+    box-shadow: 0 0 0 1px rgba(0,0,0,0.8); /* Sharper shadow for dark mode crosshair */
 }
 
-[data-color-scheme="dark"] .volume-control {
-  background: rgba(38, 40, 40, 0.9);
-  border: 1px solid rgba(119, 124, 124, 0.3);
+/* Ensure prefers-color-scheme also works if data-attribute is not set (or for initial load) */
+/* These apply if OS is in dark mode AND no data-color-scheme="light" is overriding it */
+@media (prefers-color-scheme: dark) {
+    body:not([data-color-scheme="light"]) .screen { background: rgba(10, 10, 15, 0.95); }
+    body:not([data-color-scheme="light"]) .hud-item {
+        background: rgba(25, 30, 35, 0.85);
+        border-color: rgba(119, 124, 124, 0.25);
+        color: #f0f0f0;
+    }
+    body:not([data-color-scheme="light"]) .hud-item .label { color: #b0b0b0; }
+    body:not([data-color-scheme="light"]) .volume-control {
+        background: rgba(25, 30, 35, 0.85);
+        border-color: rgba(119, 124, 124, 0.25);
+        color: #f0f0f0;
+    }
+    body:not([data-color-scheme="light"]) #crosshair {
+        background: rgba(var(--color-primary-rgb), 0.9);
+        box-shadow: 0 0 0 1px rgba(0,0,0,0.8);
+    }
+}
+
+/* FKGroteskNeue font-face, assuming it's hosted or you'll replace the URL */
+@font-face {
+  font-family: 'FKGroteskNeue';
+  src: url('https://www.perplexity.ai/fonts/FKGroteskNeue.woff2') /* Replace with actual path if self-hosting */
+    format('woff2');
+  font-weight: normal; /* Adjust as per the font file */
+  font-style: normal;  /* Adjust as per the font file */
 }
