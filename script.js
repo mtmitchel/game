@@ -279,7 +279,7 @@ function addFurniture() {
     const furnitureMaterial = new THREE.MeshStandardMaterial({ color: 0x8B4513, roughness: 0.7 });
     const couchGeometry = new THREE.BoxGeometry(4, 1.5, 2);
     const couch = new THREE.Mesh(couchGeometry, furnitureMaterial);
-    couch.position.set(-3, 0); // Fixed syntax here
+    couch.position.set(-3, 0.75, 2); // Add the missing Z-coordinate
     couch.castShadow = true;
     scene.add(couch);
     
